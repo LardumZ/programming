@@ -1,0 +1,28 @@
+
+
+marsSurfaceBuilder
+
+	draw 
+	
+	baggrundsbilled
+	placer (random objekt, randomX, random Y) //maks størrelse af vindue
+
+
+
+
+	/* objekter og forhindirnger
+		sten
+		stor sten
+		grøft
+		
+*/
+
+/* extra point ved
+
+boringer
+opsamling af prøver
+sparing af energie
+
+*/
+
+	
