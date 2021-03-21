@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+C:\Users\foriw\OneDrive\1g g\programering\eksamensprojekt\programming\.metadata\.plugins\org.eclipse.jdt.core
+1934094312.index
+3969621741.index
+1451857348.index
