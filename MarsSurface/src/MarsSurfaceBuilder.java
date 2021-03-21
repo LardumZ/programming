@@ -35,15 +35,17 @@ int Stonenumber = 14; //number of stones
     
     
     void terrian() {
-    	/*String url="https://www.nasa.gov/sites/default/files/pia17080-full.jpg"; //load images form a web server
+    	noTint();
+    	String url="https://www.nasa.gov/sites/default/files/pia17080-full.jpg"; //load images form a web server
         
     	PImage webImg = loadImage(url,"jpg");
     	
     	image(webImg,0,0); //image(webImg,x,y);
     	webImg.resize(0,height);//resize
-    	*/
-    	fill(50);
-    	noStroke();
+    	
+    	fill(255);
+    	stroke(20);
+    	
     	
     	for (int i =0; i<Stonenumber; i++) {
     		float stoneSize = random(15,width/10);
@@ -51,23 +53,23 @@ int Stonenumber = 14; //number of stones
     		float stoneX = random(width);
     		float stoneY = random(height);
     		
-    		//circle(stoneX,stoneY,stoneSize);//random stone generator	
+    		circle(stoneX,stoneY,stoneSize);//random stone generator	
     		
-    		String stTlink="https://previews.123rf.com/images/likstudio/likstudio1109/likstudio110900068/10537888-natural-stone-texture-with-different-colors.jpg"; //load images form a web server
+    		//String stTlink="https://previews.123rf.com/images/likstudio/likstudio1109/likstudio110900068/10537888-natural-stone-texture-with-different-colors.jpg"; //load images form a web server
             
-        	PImage stT = loadImage(stTlink,"jpg");
+        	//PImage stT = loadImage(stTlink,"jpg");
         	
         	//image(stT,stoneX,stoneY); //image(webImg,x,y);
         	//stT.resize((int) (stoneX+stoneSize),(int) (stoneY+stoneSize));//here the float needs to be converted to integers
-    		
-        	textureMode(IMAGE);
-        	textureWrap(CLAMP);
+        	//texture(stT);
+        	//textureMode(IMAGE);
+        	//textureWrap(CLAMP);
         	
         	
-        	//*
+        	/*
     		
         	beginShape();
-        	texture(stT);
+        	
         	vertex(10, 20);
         	vertex(80, 5);
         	vertex(95, 90);
@@ -75,11 +77,28 @@ int Stonenumber = 14; //number of stones
     		
     		endShape();
         	
-    		//*/
+    		*/
     		//circle(stoneX,stoneY,stoneSize);//random stone generator	
     		
     	}
     	
+    	
+    	save("stoneMask.png");
+    	
+    	String stTlink="https://previews.123rf.com/images/likstudio/likstudio1109/likstudio110900068/10537888-natural-stone-texture-with-different-colors.jpg"; //load images form a web server
+        
+    	PImage stT = loadImage(stTlink,"jpg");
+    	stT.resize(width,height);
+    	
+    	
+    	PImage stTMask = loadImage("stoneMask.png");
+    	
+    	
+    	stT.mask(stTMask);
+    	
+    	//background(200);
+    	tint(100);
+    	image(stT,0,0);
     	
     }
     
