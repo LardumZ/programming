@@ -1,5 +1,5 @@
-import processing.core.PApplet;
-import processing.core.PImage;//used for displaying images
+import processing.core.PApplet;//used to import the functions of the processing IDE
+import processing.core.PImage;//used for displaying images in processing
 
 
 
@@ -12,7 +12,7 @@ public class MarsSurfaceBuilder extends PApplet  {
     
     // method used only for setting the size of the window
     public void settings(){
-        size(800,800);
+        size(800,800);//the window size needs to be defined here
     }
 
 int Stonenumber = 14; //number of stones
@@ -27,7 +27,7 @@ int Stonenumber = 14; //number of stones
     public void draw(){
     	
     	terrian();
-    	//noLoop();
+    	noLoop();
     	
     	
     }
@@ -35,70 +35,44 @@ int Stonenumber = 14; //number of stones
     
     
     void terrian() {
-    	noTint();
-    	String url="https://www.nasa.gov/sites/default/files/pia17080-full.jpg"; //load images form a web server
-        
-    	PImage webImg = loadImage(url,"jpg");
+    	noTint();//if program is run in loop the tint function down below will effect future outcome
     	
-    	image(webImg,0,0); //image(webImg,x,y);
-    	webImg.resize(0,height);//resize
+    	fill(255);//makes all circles white
+    	background(0);//set a black background so the mask has an alpha difference to work with
     	
-    	fill(255);
-    	stroke(20);
-    	
-    	
-    	for (int i =0; i<Stonenumber; i++) {
+    	for (int i =0; i<Stonenumber; i++) {//drawing all stones up to defined number of stones
     		float stoneSize = random(15,width/10);
     		
     		float stoneX = random(width);
     		float stoneY = random(height);
     		
     		circle(stoneX,stoneY,stoneSize);//random stone generator	
-    		
-    		//String stTlink="https://previews.123rf.com/images/likstudio/likstudio1109/likstudio110900068/10537888-natural-stone-texture-with-different-colors.jpg"; //load images form a web server
-            
-        	//PImage stT = loadImage(stTlink,"jpg");
-        	
-        	//image(stT,stoneX,stoneY); //image(webImg,x,y);
-        	//stT.resize((int) (stoneX+stoneSize),(int) (stoneY+stoneSize));//here the float needs to be converted to integers
-        	//texture(stT);
-        	//textureMode(IMAGE);
-        	//textureWrap(CLAMP);
-        	
-        	
-        	/*
-    		
-        	beginShape();
-        	
-        	vertex(10, 20);
-        	vertex(80, 5);
-        	vertex(95, 90);
-        	vertex(40, 95);
-    		
-    		endShape();
-        	
-    		*/
-    		//circle(stoneX,stoneY,stoneSize);//random stone generator	
-    		
-    	}
+	}
     	
     	
-    	save("stoneMask.png");
+    	save("stoneMask.png");//saves the current image shown in the processing window and saves it to the content folder of the project
     	
     	String stTlink="https://previews.123rf.com/images/likstudio/likstudio1109/likstudio110900068/10537888-natural-stone-texture-with-different-colors.jpg"; //load images form a web server
         
-    	PImage stT = loadImage(stTlink,"jpg");
-    	stT.resize(width,height);
+    	PImage stT = loadImage(stTlink,"jpg");//stT = stoneTexture , URL gets defined
+    	stT.resize(width,height); //the mask only works properly if the image is the same size as the window
     	
     	
-    	PImage stTMask = loadImage("stoneMask.png");
+    	PImage stTMask = loadImage("stoneMask.png");//here the before saved mask is loaded in
     	
     	
-    	stT.mask(stTMask);
+    	stT.mask(stTMask);// here the acual masking is done
     	
-    	//background(200);
-    	tint(100);
-    	image(stT,0,0);
+    	
+    	
+    	tint(random(70,150));// the stones textured gets randomly darkened
+    	String basicSurfaceTextureUrl="https://www.nasa.gov/sites/default/files/pia17080-full.jpg"; //load background surface images form a web server
+        
+    	PImage basicSurfaceTexture = loadImage(basicSurfaceTextureUrl,"jpg");//defining the URL
+    	
+    	image(basicSurfaceTexture,0,0); //image(webImg,x,y);
+    	basicSurfaceTexture.resize(0,height);//resizes the background image to fill the window
+    	image(stT,0,0);//draws the mask on top
     	
     }
     
