@@ -6,8 +6,10 @@ import processing.core.PImage;//used for displaying images in processing
 
 
 
-public class MarsSurfaceBuilder extends PApplet  {
+public class MarsSurfaceBuilderbackup extends PApplet  {
 	pauseScreen2 pS = new pauseScreen2();
+	
+	
 	 // The argument passed to main must match the class name
     public static void main(String[] args) {
         PApplet.main("MarsSurfaceBuilder");
@@ -18,7 +20,7 @@ public class MarsSurfaceBuilder extends PApplet  {
         size(800,800);//the window size needs to be defined here
     }
 
-int Stonenumber = 20; //number of stones
+int StoneNumber = 20; //number of stones
 float stoneSize = random(15,width/10)*random(-1,1);
 int minPixelSize = 5;
 
@@ -29,11 +31,30 @@ int goalX = (int) random(800);
 int goalY = (int) random(800);
 
 int	roverSize = 100;   
+
+Stone[]	terrain = new Stone[20];
+
+
     
     // identical use to setup in Processing IDE except for size()
     public void setup(){
     println("hello");	
-    terrian();
+    
+    for (int i = 0; i <=19; i++) {
+    	terrain[i] = new Stone();
+    }
+    
+    
+    for (int i =0; i<19; i++)
+    {
+    	terrain[i].drawStone();
+    	println("wut");
+    }
+    
+    drawSurface();
+    
+    
+    //terrian();
     pixalator();
     save("Map.jpg");
     //backgroundMusik = new SoundFile(this, "sample.mp3");
@@ -161,7 +182,7 @@ int	roverSize = 100;
     	
     	noStroke();//removes any strokes of the stones so overlapping stones look like one single big stone
     	
-    	for (int i =0; i<Stonenumber; i++) {//drawing all stones up to defined number of stones
+    	for (int i =0; i<StoneNumber; i++) {//drawing all stones up to defined number of stones
     		
     		
     		float stoneX = random(width);
@@ -247,6 +268,41 @@ int	roverSize = 100;
     	
     }
  
+    void drawSurface() {
+		
+		
+		
+		save("stoneMask.jpg");//saves the current image shown in the processing window and saves it to the content folder of the project
+    	
+		overlap();//should count all the black pixels
+    	
+    	String stTlink="https://previews.123rf.com/images/likstudio/likstudio1109/likstudio110900068/10537888-natural-stone-texture-with-different-colors.jpg"; //load images form a web server
+        
+    	PImage stT = loadImage(stTlink,"jpg");//stT = stoneTexture , URL gets defined
+    	stT.resize(width,height); 
+    	
+    	
+    	PImage stTMask = loadImage("stoneMask.jpg");//here the mask that was saved earlier is loaded and defined
+    	
+    	
+    	stT.mask(stTMask);// here the actual masking is done
+    	
+    	//take first chunk of pixel and calculate average color
+    	
+    	
+    	String basicSurfaceTextureUrl="https://www.nasa.gov/sites/default/files/pia17080-full.jpg"; //load background surface images form a web server
+        
+    	PImage basicSurfaceTexture = loadImage(basicSurfaceTextureUrl,"jpg");//defining the URL
+    	
+    	image(basicSurfaceTexture,0,0); //image(webImg,x,y);
+    	basicSurfaceTexture.resize(0,height);//resizes the background image to fill the window
+    	tint(random(140,150));// each stone's texture gets randomly darkened
+    	image(stT,0,0);//draws the mask on top
+    	noTint();//if program is run in loop the tint function down below will effect 
+	}
+	
+
+    
     void mapSaveDisplay() { 
     	PImage map = loadImage("Map.jpg");
     	image(map,0,0);
@@ -269,16 +325,12 @@ int	roverSize = 100;
     	
     	   for (int y = 0;y<pixelHeight;y++){ //for every x coordinate go through all y coordinate
     		   
-    	    String[] list = split(""+x+"",' ' ); 
-    	    saveStrings ("ubba.txt", list);
     	    
     		   if (pixels[x] == Pwhite && goalX==x && goalY==y) {//if same position and color then new background
        			
     	    		  println("overlap "+x+","+y);
     	    		
     	    		    
-    	    		  
-    	    		  
     	    		  terrian();
     	    		 
     	    		  
