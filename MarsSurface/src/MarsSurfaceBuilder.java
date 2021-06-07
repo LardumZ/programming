@@ -7,7 +7,7 @@ import processing.core.PImage;//used for displaying images in processing
 
 
 public class MarsSurfaceBuilder extends PApplet  {
-	pauseScreen2 pS = new pauseScreen2();
+	//pauseScreen2 pS = new pauseScreen2();
 	 // The argument passed to main must match the class name
     public static void main(String[] args) {
         PApplet.main("MarsSurfaceBuilder");
@@ -28,14 +28,17 @@ int menuOffsetX = 75;
 int goalX = (int) random(800);	
 int goalY = (int) random(800);
 
-int	roverSize = 100;   
+int	roverSize = 100; 
+
     
     // identical use to setup in Processing IDE except for size()
     public void setup(){
-    println("hello");	
+    println("hello1");	
     terrian();
     pixalator();
     save("Map.jpg");
+    println("save");
+   
     //backgroundMusik = new SoundFile(this, "sample.mp3");
    // backgroundMusik.loop();
   //  goalSound = new SoundFile(this, "goal.mp3");
@@ -44,6 +47,9 @@ int	roverSize = 100;
 
     // identical use to draw in Processing IDE
     public void draw(){
+
+
+    	
     	
     	//terrian();
     	
@@ -54,8 +60,10 @@ int	roverSize = 100;
     	
     	mapSaveDisplay();
     	goal();
+    	
     	//println(get());
     	rover();
+    	//kaboom();
     	
     	menu();
     	//noLoop();
@@ -210,7 +218,6 @@ int	roverSize = 100;
     		
     		endShape();
     		
-    		//rect(0,0,100,100);
     		
 	}
     	
@@ -244,12 +251,15 @@ int	roverSize = 100;
     	image(stT,0,0);//draws the mask on top
     	noTint();//if program is run in loop the tint function down below will effect 
     	
-    	
+    	println("shoud be background");
+    	//fill(255);
+		//rect(0,0,800,400);
     }
  
     void mapSaveDisplay() { 
     	PImage map = loadImage("Map.jpg");
     	image(map,0,0);
+    	//print("show map");
     }
     
     void goal() {
@@ -262,34 +272,70 @@ int	roverSize = 100;
     
     
     void overlap() {
+    	/*
+    	
     	int Pwhite = color(255);
     	
-    	loadPixels();
+    	PImage stTMask2 = loadImage("stoneMask.png");
+    	stTMask2.resize(width,height);
+    	stTMask2.loadPixels();
     	for (int x = 0;x<pixelWidth;x++) { //go through all x pixels
     	
     	   for (int y = 0;y<pixelHeight;y++){ //for every x coordinate go through all y coordinate
-    		   
-    	    String[] list = split(""+x+"",' ' ); 
-    	    saveStrings ("ubba.txt", list);
-    	    
-    		   if (pixels[x] == Pwhite && goalX==x && goalY==y) {//if same position and color then new background
-       			
+    		
+    	   
+    		   if (pixels[x] == 255 ) {//if same position and color then new background
+       			 println("pixel "+x+","+y);
     	    		  println("overlap "+x+","+y);
-    	    		
-    	    		    
-    	    		  
-    	    		  
     	    		  terrian();
-    	    		 
+    	    		  
+    	    	  }
+    		   else if (pixels[x]== 0) {
+    			   println("null");
+    		   }
+    		   
+    	   }
+    	}
+    	*/
+    	
+    }
+  
+  
+    void kaboom()	{
+    	/*
+    
+    	int Pwhite = color(255);// white pixel
+    	  		  
+    	PImage stTMask3 = loadImage("stoneMask.jpg");
+    	stTMask3.loadPixels();
+    	for (int x = 0;x<pixelWidth;x++) { //go through all x pixels
+    	
+    	   for (int y = 0;y<pixelHeight;y++){ //for every x coordinate go through all y coordinate
+    		
+    		   if (pixels[x] == Pwhite && mouseX==x && mouseY==y  ) {//if same position and color then new background teoretisk
+       			
+    	    		  fill(200,10,10);
+    	    		  println("game over");
+    	    		 textSize(50);
+    	    		  text("game over",200,200);
+    	    		  menu();
     	    		  
     	    	  }
     	   }
     	}
-    	
-    	
-    }
-  
+    */
+    } 
+    
     void vhiicleCollision() {
+   
+    	
+    	/*
+    	if (yee == mouseX || yee == mouseY) {
+    		println(yee);
+    	}
+    	
+    	
+    	
     	/*
     	int Pwhite = color(255);
     	
@@ -332,11 +378,16 @@ int	roverSize = 100;
     	
     	*/
     	
-    	if (dist(goalX,goalY,mouseX,mouseY)<=roverSize/3){
-    		println("win");
+    		if (dist(goalX,goalY,mouseX,mouseY)<=roverSize/2){//distance from goal
+    		
+    		fill(200,10,10);
+    		textSize(50);
+  		  	text("Well done",200,200);
+  		  	delay(5000);
+  		  	menu();
     	}
     	
-    	
+    
     }
     
     
@@ -369,9 +420,10 @@ int	roverSize = 100;
     	    for(int y = 0; y<height; y+=minPixelSize){
     	      int offset = 0;
     	      if(y%2==1){ //If Y is odd
-    	        offset = minPixelSize/2;
+    	        offset = minPixelSize;
     	      }
     	      sampleRect(x-offset, y, minPixelSize, minPixelSize);
+    	      print("pixel");
     	    }
     	  }
     	
